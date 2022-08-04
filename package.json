@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "main": "index.test.js",
   "scripts": {
-    "test": "bft index.test.js"
-  },
-  "devDependencies": {
-    "bft": "1.2.1"
+    "test": "node --test"
   }
 }
