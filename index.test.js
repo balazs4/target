@@ -17,7 +17,7 @@ test('all good', (t) => {
     'x_id_1',
     'x_name_1',
     JSON.stringify({
-      _from: 'previous',
+      _from: 'next',
       foo: 'bar1',
       bazz: 42,
     }),
@@ -25,7 +25,7 @@ test('all good', (t) => {
     'x_id_2',
     'x_name_2',
     JSON.stringify({
-      _from: 'next',
+      _from: 'previous',
       foo: 'bar2',
       bazz: 42,
     }),
@@ -58,18 +58,18 @@ test('all good', (t) => {
         foo: 'bar0',
         bazz: 42,
       },
-      x_type_1: {
-        name: 'x_name_1',
-        id: 'x_id_1',
-        foo: 'bar1',
-        bazz: 42,
-      },
-    },
-    next: {
       x_type_2: {
         name: 'x_name_2',
         id: 'x_id_2',
         foo: 'bar2',
+        bazz: 42,
+      },
+    },
+    next: {
+      x_type_1: {
+        name: 'x_name_1',
+        id: 'x_id_1',
+        foo: 'bar1',
         bazz: 42,
       },
     },
