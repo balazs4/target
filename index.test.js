@@ -1,4 +1,4 @@
-// const test = require('node:test');
+const test = require('node:test');
 const assert = require('assert').strict;
 
 test('all good', (t) => {
@@ -76,11 +76,32 @@ test('all good', (t) => {
   };
 
   const actual = (() => {
+    const { previous, next } = Object.entries(headers)
+      .filter(([key]) => /target_/.test(key))
+      .reduce((acc, [col, colindex]) => {
+        const [, suffix, index] = col.split('_');
+        if (acc[index] === undefined) acc[index] = {};
+        acc[index][suffix] =
+          suffix === 'metadata' ? JSON.parse(raw[colindex]) : raw[colindex];
+        return acc;
+      }, [])
+      .reduce(
+        (acc, target) => {
+          const { _from, ...rest } = target.metadata;
+          acc[_from] = {
+            ...acc[_from],
+            [target.type]: { id: target.id, name: target.name, ...rest },
+          };
+          return acc;
+        },
+        { previous: {}, next: {} }
+      );
+
     return {
       x: raw[headers['allx']],
       y: raw[headers['ally']],
-      previous: {},
-      next: {},
+      previous,
+      next,
     };
   })();
 
